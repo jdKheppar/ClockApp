@@ -37,7 +37,7 @@ public class ClockApp {
         private ArrayList<String> tones;
 
         public ClockPanel() {
-            tones=new ArrayList<String>();
+            tones = new ArrayList<String>();
             SnoozeCount = 2;
             timers = new ArrayList<>();
             timeZone = "Asia/Karachi"; // Set default time zone to Pakistan
@@ -70,7 +70,7 @@ public class ClockApp {
             constraints.gridy = 3;
             add(setTimezoneButton, constraints);
 
-            Timer timer = new Timer(1000, f -> updateClock());
+            Timer timer = new Timer(5000, f -> updateClock());
             timer.start();
         }
 
@@ -103,8 +103,7 @@ public class ClockApp {
 
                 String serverTime = new String(receivePacket.getData(), 0, receivePacket.getLength());
                 return LocalDateTime.parse(serverTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 JOptionPane.showMessageDialog(this, "Run the Timing Server !!!");
                 return null;
             }
@@ -150,15 +149,13 @@ public class ClockApp {
                 JOptionPane.showMessageDialog(this, "Alarm set for: " + input);
 
                 String ip = JOptionPane.showInputDialog("Enter alarm tone name:");
-                for (int i=0;i<tones.size();i++)
-                    {
-                        if (tones.get(i)==ip)
-                        {
-                            JOptionPane.showMessageDialog(this, "Tone choosen for Alarm: " + ip);
-                            return;
-                        }
+                for (int i = 0; i < tones.size(); i++) {
+                    if (tones.get(i) == ip) {
+                        JOptionPane.showMessageDialog(this, "Tone choosen for Alarm: " + ip);
+                        return;
                     }
-                    JOptionPane.showMessageDialog(this, "Invalid Tone entered. Choosen Default tone.");
+                }
+                JOptionPane.showMessageDialog(this, "Invalid Tone entered. Choosen Default tone.");
 
             } catch (DateTimeParseException e) {
                 JOptionPane.showMessageDialog(this, "Invalid input. Please use the format 'yyyy-MM-dd HH:mm:ss'");
